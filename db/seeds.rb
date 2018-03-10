@@ -11,6 +11,8 @@ PurposeCode.destroy_all
 DisasterType.destroy_all
 DeclarationType.destroy_all
 AssistanceType.destroy_all
+Employee.destroy_all
+Entity.destroy_all
 
 
 Bank.create(code: 'ABC', description: 'The ABC Bank of Smalltown')
@@ -64,4 +66,40 @@ AssistanceType.create(code: 'AT1', description: 'Assistance type one')
 AssistanceType.create(code: 'AT2', description: 'Assistance type two')
 AssistanceType.create(code: 'AT3', description: 'Assistance type three')
 
+Employee.create( code: 'LO1',
+                 name: 'Larry Lender',
+                 title: 'Loan Officer',
+                 is_user: false )
 
+Employee.create( code: 'MM123',
+                 name: 'Mary Manager',
+                 title: 'Branch Manager',
+                 is_user: false )
+
+Employee.create( code: 'TT123',
+                 name: 'Telly Teller',
+                 title: 'Teller',
+                 is_user: false )
+
+Employee.create( code: 'CO123',
+                 name: 'Connie Compliant',
+                 title: 'Compliance Officer',
+                 is_user: true )
+
+Entity.create(  code: 'BIZ1',
+                description: 'Entity The First',
+                phone: '555-539-1111',
+                entity_group_id: EntityGroup.first.id,
+                revenue: 5000000000,
+                number_of_employees: 10000,
+                address: '5209 Winfree Lane Wake Forest NC 12345',
+                csz: 'what is CSZ?')
+
+Entity.create(  code: 'BIZ2',
+                description: 'Entity The Second',
+                phone: '555-539-1111',
+                entity_group_id: EntityGroup.first.id,
+                revenue: 1000000000,
+                number_of_employees: 15000,
+                address: '5209 Tennyson Parkway Plano TX 32154',
+                csz: 'what is CSZ?')
