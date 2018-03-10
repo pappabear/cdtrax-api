@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :banks
   resources :assessment_areas
-  resources :branchs
+  resources :branches
   resources :call_codes
   resources :collateral_codes 
   resources :entity_groups

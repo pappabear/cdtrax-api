@@ -1,30 +1,30 @@
-class BranchsController < ApplicationController
+class BranchesController < ApplicationController
     before_action :set_branch, only: [:show, :update, :destroy]
   
-    # GET /branchs
+    # GET /branches
     def index
-      @branchs = Branch.all
-      json_response(@branchs)
+      @branches = Branch.all
+      json_response(@branches)
     end
   
-    # POST /branchs
+    # POST /branches
     def create
       @branch = Branch.create!(branch_params)
       json_response(@branch)
     end
   
-    # GET /branchs/:id
+    # GET /branches/:id
     def show
       json_response(@branch)
     end
   
-    # PUT /branchs/:id
+    # PUT /branches/:id
     def update
       @branch.update(branch_params)
       head :no_content
     end
   
-    # DELETE /branchs/:id
+    # DELETE /branches/:id
     def destroy
       @branch.destroy
       head :no_content
