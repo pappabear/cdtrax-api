@@ -18,11 +18,11 @@ Entity.destroy_all
 Bank.create(code: 'ABC', description: 'The ABC Bank of Smalltown')
 Bank.create(code: 'XYZ', description: 'The XYZ Bank of Biggsburg')
 
-AssessmentArea.create(code: 'DAL', description: 'Dallas')
+AssessmentArea.create(code: 'DAL', description: 'Dallas', bank_id:Bank.first.id)
 AssessmentArea.create(code: 'FW', description: 'Fort Worth')
 AssessmentArea.create(code: 'PAR', description: 'Paris')
 
-Branch.create(code: 'MAI', description: 'Main Street')
+Branch.create(code: 'MAI', description: 'Main Street', bank_id:Bank.first.id)
 Branch.create(code: 'WRO', description: 'Southend')
 Branch.create(code: 'DEN', description: 'Palladium Park')
 

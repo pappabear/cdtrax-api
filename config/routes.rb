@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :banks
-  resources :assessment_areas
-  resources :branches
+  resources :banks do
+    resources :assessment_areas
+    resources :branches
+  end
   resources :call_codes
   resources :collateral_codes 
   resources :entity_groups
