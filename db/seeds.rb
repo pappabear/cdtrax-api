@@ -19,12 +19,14 @@ Bank.create(code: 'ABC', description: 'The ABC Bank of Smalltown')
 Bank.create(code: 'XYZ', description: 'The XYZ Bank of Biggsburg')
 
 AssessmentArea.create(code: 'DAL', description: 'Dallas', bank_id:Bank.first.id)
-AssessmentArea.create(code: 'FW', description: 'Fort Worth')
-AssessmentArea.create(code: 'PAR', description: 'Paris')
+AssessmentArea.create(code: 'FW', description: 'Fort Worth', bank_id:Bank.first.id)
+AssessmentArea.create(code: 'PAR', description: 'Paris', bank_id:Bank.last.id)
+AssessmentArea.create(code: 'LBK', description: 'Lubbock', bank_id:Bank.last.id)
 
 Branch.create(code: 'MAI', description: 'Main Street', bank_id:Bank.first.id)
-Branch.create(code: 'WRO', description: 'Southend')
-Branch.create(code: 'DEN', description: 'Palladium Park')
+Branch.create(code: 'WRO', description: 'Southend', bank_id:Bank.first.id)
+Branch.create(code: 'DEN', description: 'Palladium Park', bank_id:Bank.last.id)
+Branch.create(code: 'FRI', description: 'Frisco', bank_id:Bank.last.id)
 
 CallCode.create(code: '911', description: 'Fraud')
 CallCode.create(code: '123', description: 'Volnteer')

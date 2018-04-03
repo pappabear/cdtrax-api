@@ -3,7 +3,7 @@ class BranchesController < ApplicationController
   
     # GET /branches
     def index
-      @branches = Branch.all
+      @branches = Branch.all.order('bank_id')
       json_response(@branches)
     end
   
@@ -34,7 +34,7 @@ class BranchesController < ApplicationController
   
     def branch_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:code, :description, :bank_id)
     end
   
     def set_branch

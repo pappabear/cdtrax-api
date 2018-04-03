@@ -3,7 +3,7 @@ class AssessmentAreasController < ApplicationController
   
     # GET /assessment_areas
     def index
-      @assessment_areas = AssessmentArea.all
+      @assessment_areas = AssessmentArea.all.order('bank_id')
       json_response(@assessment_areas)
     end
   
