@@ -1,9 +1,11 @@
 class AssessmentAreasController < ApplicationController
+  
     before_action :set_assessment_area, only: [:show, :update, :destroy]
   
     # GET /assessment_areas
     def index
-      @assessment_areas = AssessmentArea.all.order('bank_id')
+      #@assessment_areas = AssessmentArea.all.order('bank_id')
+      @assessment_areas = AssessmentArea.find_by_sql("select a.*, b.description as bank_description from assessment_areas a, banks b where a.bank_id = b.id")
       json_response(@assessment_areas)
     end
   
@@ -34,7 +36,7 @@ class AssessmentAreasController < ApplicationController
   
     def assessment_area_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:code, :description, :bank_id)
     end
   
     def set_assessment_area
