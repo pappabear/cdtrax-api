@@ -1,9 +1,11 @@
 class BranchesController < ApplicationController
+  
     before_action :set_branch, only: [:show, :update, :destroy]
   
     # GET /branches
     def index
-      @branches = Branch.all.order('bank_id')
+      #@branches = Branch.all.order('bank_id')
+      @branches = Branch.find_by_sql("select a.*, b.description as bank_description from branches a, banks b where a.bank_id = b.id")
       json_response(@branches)
     end
   
