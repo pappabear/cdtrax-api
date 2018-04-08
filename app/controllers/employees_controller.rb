@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  
     before_action :set_employee, only: [:show, :update, :destroy]
   
     # GET /employees
@@ -34,7 +35,7 @@ class EmployeesController < ApplicationController
   
     def employee_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:code, :name, :title)
     end
   
     def set_employee
