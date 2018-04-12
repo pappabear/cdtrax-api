@@ -215,25 +215,12 @@ AssistanceType.create(code: '320', description: 'Individual Assistance')
 AssistanceType.create(code: '321', description: 'Public Assistance')
 AssistanceType.create(code: '322', description: 'Hazard Mitigation Assistance')
 
-Employee.create( code: 'LO1',
-                 name: 'Larry Lender',
-                 title: 'Loan Officer',
-                 is_user: false )
-
-Employee.create( code: 'MM123',
-                 name: 'Mary Manager',
-                 title: 'Branch Manager',
-                 is_user: false )
-
-Employee.create( code: 'TT123',
-                 name: 'Telly Teller',
-                 title: 'Teller',
-                 is_user: false )
-
-Employee.create( code: 'CO123',
-                 name: 'Connie Compliant',
-                 title: 'Compliance Officer',
-                 is_user: true )
+1000.times do |i|
+    Employee.create( code: 'EMP' + i.to_s,
+                     name: Faker::GameOfThrones.character,
+                     title: Faker::Simpsons.quote,
+                     is_user: false )
+end
 
 
 #Entity.create(  code: 'BIZ1',
