@@ -35,7 +35,7 @@ class EmployeesController < ApplicationController
   
     def employee_params
       # whitelist params
-      params.permit(:code, :name, :title)
+      params.permit(:code, :name, :title, :default_bank_id, :default_branch_id)
     end
   
     def set_employee

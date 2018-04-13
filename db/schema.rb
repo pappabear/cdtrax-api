@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20180402203323) do
     t.string   "name"
     t.string   "title"
     t.integer  "default_bank_id"
+    t.integer  "null"
     t.integer  "default_branch_id"
     t.boolean  "is_user"
     t.datetime "created_at",        null: false

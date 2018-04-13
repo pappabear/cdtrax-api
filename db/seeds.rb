@@ -215,10 +215,10 @@ AssistanceType.create(code: '320', description: 'Individual Assistance')
 AssistanceType.create(code: '321', description: 'Public Assistance')
 AssistanceType.create(code: '322', description: 'Hazard Mitigation Assistance')
 
-1000.times do |i|
+10.times do |i|
     Employee.create( code: 'EMP' + i.to_s,
-                     name: Faker::GameOfThrones.character,
-                     title: Faker::Simpsons.quote,
+                     name: Faker::Name.name,
+                     title: Faker::Name.title,
                      is_user: false )
 end
 

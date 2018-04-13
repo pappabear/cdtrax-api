@@ -4,8 +4,8 @@ class CreateEmployees < ActiveRecord::Migration[5.0]
       t.string :code
       t.string :name
       t.string :title
-      t.integer :default_bank_id
-      t.integer :default_branch_id
+      t.integer :default_bank_id, :null => true
+      t.integer :default_branch_id, :null => true
       t.boolean :is_user
 
       t.timestamps
