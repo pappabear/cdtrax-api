@@ -1,10 +1,10 @@
 class EntitiesController < ApplicationController
     before_action :set_entity, only: [:show, :update, :destroy]
   
-    # GET /entitys
+    # GET /entities
     def index
-      @entitys = Entity.all
-      json_response(@entitys)
+      @entities = Entity.all
+      json_response(@entities)
     end
   
     # POST /entitys
@@ -34,7 +34,7 @@ class EntitiesController < ApplicationController
   
     def entity_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:name, :address, :city, :state, :zip, :phone, :mission, :number_of_employees, :revenue, :website)
     end
   
     def set_entity

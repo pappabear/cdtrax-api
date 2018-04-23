@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 20180402203323) do
     t.string   "name"
     t.string   "title"
     t.integer  "default_bank_id"
-    t.integer  "null"
     t.integer  "default_branch_id"
     t.boolean  "is_user"
     t.datetime "created_at",        null: false
@@ -86,16 +85,16 @@ ActiveRecord::Schema.define(version: 20180402203323) do
   end
 
   create_table "entities", force: :cascade do |t|
-    t.string   "code"
-    t.string   "description"
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
     t.string   "phone"
-    t.integer  "entity_group_id"
-    t.float    "revenue"
-    t.integer  "number_of_employees"
-    t.text     "address"
-    t.string   "csz"
+    t.string   "revenue"
     t.string   "website"
-    t.text     "mission_statement"
+    t.string   "number_of_employees"
+    t.text     "mission"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
