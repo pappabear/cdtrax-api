@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :declaration_types
   resources :assistance_types
   resources :entities
-  resources :employees 
+  resources :employees
+  resources :activities 
   
 end
