@@ -472,11 +472,11 @@ Entity.create(	name:	'Elkhart Memorial Dollars for Scholars',	address:	'2608 Cal
 
 =end
 
+# prepare one activity record that has only minimal data
 Activity.create( activity_dt:Faker::Date.between(3.months.ago, Date.today-1),
-               activity_type:'left outer join test', 
-               purpose_code_id:nil 
-               )
+               activity_type:'left outer join test')
 
+# prepare a volume of random data
 100.times do |i|
   
   disaster_start_dt = Faker::Date.between(6.months.ago, 5.months.ago)

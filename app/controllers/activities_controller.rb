@@ -2,15 +2,12 @@ class ActivitiesController < ApplicationController
 
 
   #before_action :set_activity, only: [:show, :update, :destroy]
-  before_action :set_activity, only: [:show, :update, :destroy]
+  before_action :set_activity, only: [:update, :destroy]
 
 
   # GET /activities
   def index
-    
-    #@activities = Activity.all
     @activities = Activity.find_by_sql(getViewSQL)
-
     json_response(@activities)
   end
 
@@ -22,12 +19,8 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/:id
   def show
-
     sql = getViewSQL + " where a.id=" + params[:id] + " LIMIT 1"
-    
-    #@activities = Activity.all
     @activity = Activity.find_by_sql(sql)
-
     json_response(@activity)
   end
 
@@ -47,7 +40,23 @@ class ActivitiesController < ApplicationController
 
   def activity_params
     # whitelist params
-    params.permit(:activity_dt, :activity_type, :purpose_code_id, :employee_id, :entity_id, :contact_name, :assessment_area_id, :disaster_number, :disaster_start_dt,:disaster_end_dt,:disaster_type_id,:declaration_type_id,:assistance_type_id,:related_service_flag,:related_investment_flag,:related_loan_flag,:lmi_percentage,:is_benefit_statewide,:is_benefit_investment,:is_benefit_empowerment,:is_benefit_distressed,:is_benefit_underserved,:is_benefit_disaster,:notes, :service_type_id, :hours, :cra_hours, :is_financial_expertise, :investment_type_id, :cusip_number, :maturity_dt,:original_amount,:book_value,:unfunded_committment,:percent_of_entity_funding,:percent_of_entity_funding,:account_number,:loan_number,:loan_type_id,:call_code_id,:collateral_code_id,:address,:city,:state,:zip,:term,:is_cra_qualified,:is_3rd_party,:is_affiliate,:state_code,:county_code,:tract,:msa,:income_id,:minority_id)
+    params.permit(:activity_dt, :activity_type, :purpose_code_id,
+                                :employee_id, :entity_id, 
+                                :contact_name, :assessment_area_id, :disaster_number, 
+                                :disaster_start_dt, :disaster_end_dt, 
+                                :disaster_type_id, :declaration_type_id, :assistance_type_id, 
+                                :related_service_flag, :related_investment_flag, 
+                                :related_loan_flag, :lmi_percentage, :is_benefit_statewide, 
+                                :is_benefit_investment, :is_benefit_empowerment, :is_benefit_distressed, 
+                                :is_benefit_underserved, :is_benefit_disaster, :notes, 
+                                :service_type_id, :hours, :cra_hours, :is_financial_expertise, 
+                                :investment_type_id, :cusip_number, 
+                                :maturity_dt, :original_amount, :book_value, :unfunded_committment, 
+                                :percent_of_entity_funding, :account_number, 
+                                :loan_number, :loan_type_id, :call_code_id, :collateral_code_id, 
+                                :address, :city, :state, :zip, :term, 
+                                :is_cra_qualified, :is_3rd_party, :is_affiliate, :state_code, :county_code, 
+                                :tract, :msa, :income_id, :minority_id)
   end
 
   def set_activity
@@ -57,10 +66,14 @@ class ActivitiesController < ApplicationController
   def getViewSQL
     
     sql = "select a.id
-           ,TO_CHAR(a.activity_dt, 'MM/DD/YYYY') activity_dt 
-           ,TO_CHAR(a.disaster_start_dt, 'MM/DD/YYYY') disaster_start_dt
-           ,TO_CHAR(a.disaster_end_dt, 'MM/DD/YYYY') disaster_end_dt
-           ,TO_CHAR(a.maturity_dt, 'MM/DD/YYYY') maturity_dt
+           ,a.activity_dt
+	         ,TO_CHAR(a.activity_dt, 'MM/DD/YYYY') activity_dt_formatted 
+           ,a.disaster_start_dt
+           ,a.disaster_end_dt
+           ,a.maturity_dt
+           ,TO_CHAR(a.disaster_start_dt, 'MM/DD/YYYY') disaster_start_dt_formatted
+           ,TO_CHAR(a.disaster_end_dt, 'MM/DD/YYYY') disaster_end_dt_formatted
+           ,TO_CHAR(a.maturity_dt, 'MM/DD/YYYY') maturity_dt_formatted
            ,a.activity_type
            ,a.contact_name
            ,a.disaster_number
@@ -126,18 +139,18 @@ class ActivitiesController < ApplicationController
     	     ,a.collateral_code_id
            ,m.description collateral_code_description      
     from activities a
-    full outer join purpose_codes b on a.purpose_code_id = b.id
-    full outer join employees c on a.employee_id = c.id
-    full outer join entities d on a.entity_id = d.id
-    full outer join assessment_areas e on a.assessment_area_id = e.id
-    full outer join disaster_types f on a.disaster_type_id = f.id
-    full outer join declaration_types g on a.declaration_type_id = g.id
-    full outer join assistance_types h on a.assistance_type_id = h.id
-    full outer join service_types i on a.service_type_id = i.id
-    full outer join investment_types j on a.investment_type_id = j.id
-    full outer join loan_types k on a.loan_type_id = k.id
-    full outer join call_codes l on a.call_code_id = l.id
-    full outer join collateral_codes m on a.collateral_code_id = m.id"
+          full outer join purpose_codes b on a.purpose_code_id = b.id
+          full outer join employees c on a.employee_id = c.id
+          full outer join entities d on a.entity_id = d.id
+          full outer join assessment_areas e on a.assessment_area_id = e.id
+          full outer join disaster_types f on a.disaster_type_id = f.id
+          full outer join declaration_types g on a.declaration_type_id = g.id
+          full outer join assistance_types h on a.assistance_type_id = h.id
+          full outer join service_types i on a.service_type_id = i.id
+          full outer join investment_types j on a.investment_type_id = j.id
+          full outer join loan_types k on a.loan_type_id = k.id
+          full outer join call_codes l on a.call_code_id = l.id
+          full outer join collateral_codes m on a.collateral_code_id = m.id"
     
     return sql
 
