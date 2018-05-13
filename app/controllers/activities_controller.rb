@@ -2,43 +2,14 @@ class ActivitiesController < ApplicationController
 
 
   #before_action :set_activity, only: [:show, :update, :destroy]
-  before_action :set_activity, only: [:update, :destroy]
+  before_action :set_activity, only: [:show, :update, :destroy]
 
 
   # GET /activities
   def index
-    sql = "select employees.name employee_name, employees.title employee_title"
-    sql += ", entities.name entity_name, entities.address entity_address, entities.city entity_city, entities.state entity_state, entities.zip entity_zip"
-    sql += ", assessment_areas.description"
-    sql += ", disaster_types.description"
-    sql += ", declaration_types.description"
-    sql += ", assistance_types.description"     
-    sql += ", service_types.description"
-    sql += ", investment_types.description"
-    sql += ", loan_types.description"
-    sql += ", call_codes.description"
-    sql += ", collateral_codes.description"
-    sql += ", purpose_codes.description"   
-    sql += ", a.* "
-    sql += " from activities a, employees employees, entities entities "
-    sql += ", assessment_areas assessment_areas, disaster_types disaster_types, declaration_types declaration_types"
-    sql += ", assistance_types assistance_types, service_types service_types, investment_types investment_types"
-    sql += ", loan_types loan_types, call_codes call_codes, collateral_codes collateral_codes, purpose_codes purpose_codes"
-    sql += " where a.employee_id = employees.id"
-    sql += " and a.entity_id = entities.id"
-    sql += " and a.assessment_area_id = assessment_areas.id"
-    sql += " and a.disaster_type_id = disaster_types.id"
-    sql += " and a.declaration_type_id = declaration_types.id"
-    sql += " and a.assistance_type_id = assistance_types.id"
-    sql += " and a.service_type_id = service_types.id"
-    sql += " and a.investment_type_id = investment_types.id"
-    sql += " and a.loan_type_id = loan_types.id"
-    sql += " and a.call_code_id = call_codes.id"
-    sql += " and a.collateral_code_id = collateral_codes.id"
-    sql += " and a.purpose_code_id = purpose_codes.id"
     
     #@activities = Activity.all
-    @activities = Activity.find_by_sql(sql)
+    @activities = Activity.find_by_sql(getViewSQL)
 
     json_response(@activities)
   end
@@ -52,36 +23,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/:id
   def show
 
-    sql = "select employees.name employee_name, employees.title employee_title"
-    sql += ", entities.name entity_name, entities.address entity_address, entities.city entity_city, entities.state entity_state, entities.zip entity_zip"
-    sql += ", assessment_areas.description"
-    sql += ", disaster_types.description"
-    sql += ", declaration_types.description"
-    sql += ", assistance_types.description"     
-    sql += ", service_types.description"
-    sql += ", investment_types.description"
-    sql += ", loan_types.description"
-    sql += ", call_codes.description"
-    sql += ", collateral_codes.description"
-    sql += ", purpose_codes.description"   
-    sql += ", a.* "
-    sql += " from activities a, employees employees, entities entities "
-    sql += ", assessment_areas assessment_areas, disaster_types disaster_types, declaration_types declaration_types"
-    sql += ", assistance_types assistance_types, service_types service_types, investment_types investment_types"
-    sql += ", loan_types loan_types, call_codes call_codes, collateral_codes collateral_codes, purpose_codes purpose_codes"
-    sql += " where a.employee_id = employees.id"
-    sql += " and a.entity_id = entities.id"
-    sql += " and a.assessment_area_id = assessment_areas.id"
-    sql += " and a.disaster_type_id = disaster_types.id"
-    sql += " and a.declaration_type_id = declaration_types.id"
-    sql += " and a.assistance_type_id = assistance_types.id"
-    sql += " and a.service_type_id = service_types.id"
-    sql += " and a.investment_type_id = investment_types.id"
-    sql += " and a.loan_type_id = loan_types.id"
-    sql += " and a.call_code_id = call_codes.id"
-    sql += " and a.collateral_code_id = collateral_codes.id"
-    sql += " and a.purpose_code_id = purpose_codes.id"
-    sql += " and a.id = " + params[:id]
+    sql = getViewSQL + " where a.id=" + params[:id] + " LIMIT 1"
     
     #@activities = Activity.all
     @activity = Activity.find_by_sql(sql)
@@ -105,12 +47,100 @@ class ActivitiesController < ApplicationController
 
   def activity_params
     # whitelist params
-    params.permit(:activity_dt, :activity_type, :purpose_code_id, :employee_id, :entity_id, :contact_name, :assessment_area_id, :disaster_number, :disaster_start_dt,:disaster_end_dt,:disaster_type_id,:declaration_type_id,:assistance_type_id,:related_service_flag,:related_investment_flag,:related_loan_flag,:lmi_percentage,:is_benefit_statewide,:is_benefit_investment,:is_benefit_empowerment,:is_benefit_distressed,:is_benefit_underserved,:is_benefit_disaster,:notes, :service_type_id, :hours, :cra_hours, :is_financial_expertise, :investment_type_id, :cusip_number, :maturity_dt,:original_amount,:book_value,:unfunded_committment,:percent_of_entity_funding,:percent_of_entity_funding,:account_number,:loan_number,:loan_type_id,:call_code_id,:collateral_code_id,:purpose_code_id,:address,:city,:state,:zip,:original_amount,:term,:is_cra_qualified,:is_3rd_party,:is_affiliate,:state_code,:county_code,:tract,:msa,:income_id,:minority_id)
+    params.permit(:activity_dt, :activity_type, :purpose_code_id, :employee_id, :entity_id, :contact_name, :assessment_area_id, :disaster_number, :disaster_start_dt,:disaster_end_dt,:disaster_type_id,:declaration_type_id,:assistance_type_id,:related_service_flag,:related_investment_flag,:related_loan_flag,:lmi_percentage,:is_benefit_statewide,:is_benefit_investment,:is_benefit_empowerment,:is_benefit_distressed,:is_benefit_underserved,:is_benefit_disaster,:notes, :service_type_id, :hours, :cra_hours, :is_financial_expertise, :investment_type_id, :cusip_number, :maturity_dt,:original_amount,:book_value,:unfunded_committment,:percent_of_entity_funding,:percent_of_entity_funding,:account_number,:loan_number,:loan_type_id,:call_code_id,:collateral_code_id,:address,:city,:state,:zip,:term,:is_cra_qualified,:is_3rd_party,:is_affiliate,:state_code,:county_code,:tract,:msa,:income_id,:minority_id)
   end
 
   def set_activity
     @activity = Activity.find(params[:id])
   end
   
+  def getViewSQL
+    
+    sql = "select a.id
+           ,TO_CHAR(a.activity_dt, 'MM/DD/YYYY') activity_dt 
+           ,TO_CHAR(a.disaster_start_dt, 'MM/DD/YYYY') disaster_start_dt
+           ,TO_CHAR(a.disaster_end_dt, 'MM/DD/YYYY') disaster_end_dt
+           ,TO_CHAR(a.maturity_dt, 'MM/DD/YYYY') maturity_dt
+           ,a.activity_type
+           ,a.contact_name
+           ,a.disaster_number
+           ,a.related_service_flag
+           ,a.related_investment_flag
+           ,a.related_loan_flag
+           ,a.lmi_percentage
+           ,a.is_benefit_statewide
+           ,a.is_benefit_investment
+           ,a.is_benefit_empowerment
+           ,a.is_benefit_distressed
+           ,a.is_benefit_underserved
+           ,a.is_benefit_disaster
+           ,a.notes
+           ,a.hours
+           ,a.cra_hours
+           ,a.is_financial_expertise
+           ,a.cusip_number
+           ,a.original_amount
+           ,a.book_value
+           ,a.unfunded_committment
+           ,a.percent_of_entity_funding
+           ,a.account_number
+           ,a.loan_number
+           ,a.address
+           ,a.city
+           ,a.state
+           ,a.zip
+           ,a.term
+           ,a.is_cra_qualified
+           ,a.is_3rd_party
+           ,a.is_affiliate
+           ,a.state_code
+           ,a.county_code
+           ,a.tract
+           ,a.msa
+           ,a.purpose_code_id
+           ,b.description purpose_code_description
+           ,a.employee_id
+           ,c.name employee_name, c.title employee_title 
+    	     ,a.entity_id
+           ,d.name entity_name
+           ,d.address entity_address
+           ,d.city entity_city
+           ,d.state entity_state
+           ,d.zip entity_zip
+    	     ,a.assessment_area_id
+           ,e.description assessment_area_description
+    	     ,a.disaster_type_id
+           ,f.description disaster_type_description
+    	     ,a.declaration_type_id
+           ,g.description declaration_type_description
+    	     ,a.assistance_type_id
+           ,h.description assistance_type_description
+    	     ,a.service_type_id
+           ,i.description service_type_description
+    	     ,a.investment_type_id
+           ,j.description investment_type_description
+    	     ,a.loan_type_id
+           ,k.description loan_type_description
+    	     ,a.call_code_id
+           ,l.description call_code_description
+    	     ,a.collateral_code_id
+           ,m.description collateral_code_description      
+    from activities a
+    full outer join purpose_codes b on a.purpose_code_id = b.id
+    full outer join employees c on a.employee_id = c.id
+    full outer join entities d on a.entity_id = d.id
+    full outer join assessment_areas e on a.assessment_area_id = e.id
+    full outer join disaster_types f on a.disaster_type_id = f.id
+    full outer join declaration_types g on a.declaration_type_id = g.id
+    full outer join assistance_types h on a.assistance_type_id = h.id
+    full outer join service_types i on a.service_type_id = i.id
+    full outer join investment_types j on a.investment_type_id = j.id
+    full outer join loan_types k on a.loan_type_id = k.id
+    full outer join call_codes l on a.call_code_id = l.id
+    full outer join collateral_codes m on a.collateral_code_id = m.id"
+    
+    return sql
 
+  end
+  
 end

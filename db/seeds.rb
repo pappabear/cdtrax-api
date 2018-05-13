@@ -17,8 +17,8 @@ Entity.destroy_all
 Activity.destroy_all
 
 =begin
-Bank.create(code: 'LCB', description: 'Lake City Bank')
-#Bank.create(code: 'CCB', description: 'Canyon Bank')
+Bank.create(code: 'LCB', description: 'Racoon City Bank')
+#Bank.create(code: 'CCB', description: 'Red Canyon Bank')
 
 AssessmentArea.create(code: '21140', description: 'Elkhart/ Goshen/ Nappanee', bank_id:Bank.first.id)
 AssessmentArea.create(code: '23060', description: 'Fort Wayne/ Columbia City/ South Whitley', bank_id:Bank.first.id)
@@ -467,15 +467,22 @@ Entity.create(	name:	'West Central Elementary',	address:	'1842 S US 421',	city:	
 Entity.create(	name:	'Elkhart Memorial Dollars for Scholars',	address:	'2608 California Road',	city:	'Elkhart',	state:	'IN',	zip:	'46514',	phone:	'(574) 262-5637',	website:	'',	revenue:	'0',	number_of_employees:	'0',	mission:	Faker::StarWars.quote)
 
 
-# rails g model Activity activity_dt:date activity_type:string purpose_code_id:integer employee_id:integer entity_id:integer contact_name:string assessment_area_id:integer disaster_number:string disaster_start_dt:date disaster_end_dt:date disaster_type_id:integer declaration_type_id:integer assistance_type_id:integer related_service_flag:boolean related_investment_flag:boolean related_loan_flag:boolean lmi_percentage:integer is_benefit_statewide:boolean is_benefit_investment:boolean is_benefit_empowerment:boolean is_benefit_distressed:boolean is_benefit_underserved:boolean is_benefit_disaster:boolean notes:text service_type_id:integer hours:integer cra_hours:integer is_financial_expertise:boolean investment_type_id:integer cusip_number:string maturity_dt:date original_amount:integer book_value:integer unfunded_committment:integer percent_of_entity_funding:integer account_number:string loan_number:string loan_type_id:integer call_code_id:integer collateral_code_id:integer purpose_code_id:integer address:string city:string state:string zip:string original_amount:integer term:string is_cra_qualified:boolean is_3rd_party:boolean is_affiliate:boolean state_code:string county_code:string tract:string msa:string income_id:integer minority_id:integer
+# rails g model Activity activity_dt:date activity_type:string purpose_code_id:integer employee_id:integer entity_id:integer contact_name:string assessment_area_id:integer disaster_number:string disaster_start_dt:date disaster_end_dt:date disaster_type_id:integer declaration_type_id:integer assistance_type_id:integer related_service_flag:boolean related_investment_flag:boolean related_loan_flag:boolean lmi_percentage:integer is_benefit_statewide:boolean is_benefit_investment:boolean is_benefit_empowerment:boolean is_benefit_distressed:boolean is_benefit_underserved:boolean is_benefit_disaster:boolean notes:text service_type_id:integer hours:integer cra_hours:integer is_financial_expertise:boolean investment_type_id:integer cusip_number:string maturity_dt:date original_amount:integer book_value:integer unfunded_committment:integer percent_of_entity_funding:integer account_number:string loan_number:string loan_type_id:integer call_code_id:integer collateral_code_id:integer address:string city:string state:string zip:string term:string is_cra_qualified:boolean is_3rd_party:boolean is_affiliate:boolean state_code:string county_code:string tract:string msa:string income_id:integer minority_id:integer
 
 
 =end
 
+Activity.create( activity_dt:Faker::Date.between(3.months.ago, Date.today-1),
+               activity_type:'left outer join test', 
+               purpose_code_id:nil 
+               )
+
 100.times do |i|
+  
   disaster_start_dt = Faker::Date.between(6.months.ago, 5.months.ago)
   disaster_end_dt = disaster_start_dt+5
 
+                 
   Activity.create( activity_dt:Faker::Date.between(3.months.ago, Date.today-1),
                  activity_type:Faker::Lorem.sentence, 
                  purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
@@ -516,12 +523,10 @@ Entity.create(	name:	'Elkhart Memorial Dollars for Scholars',	address:	'2608 Cal
                  loan_type_id:Random.new.rand(LoanType.first.id..LoanType.last.id), 
                  call_code_id:Random.new.rand(CallCode.first.id..CallCode.last.id), 
                  collateral_code_id:Random.new.rand(CollateralCode.first.id..CollateralCode.last.id), 
-                 purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
                  address:Faker::Address.street_address, 
                  city:Faker::Address.city, 
                  state:Faker::Address.state_abbr, 
                  zip:Faker::Address.zip, 
-                 original_amount:'100,000', 
                  term:'5', 
                  is_cra_qualified:Faker::Boolean.boolean, 
                  is_3rd_party:Faker::Boolean.boolean, 
@@ -533,38 +538,3 @@ Entity.create(	name:	'Elkhart Memorial Dollars for Scholars',	address:	'2608 Cal
                  )
   end
 
-# query / join
-
-=begin
-
-select employees.name employee_name, employees.title employee_title
-	   , entities.name entity_name, entities.address entity_address, entities.city entity_city, entities.state entity_state, entities.zip entity_zip
-       , assessment_areas.description
-       , disaster_types.description
-       , declaration_types.description       
-       , assistance_types.description       
-       , service_types.description
-       , investment_types.description
-       , loan_types.description
-       , call_codes.description
-       , collateral_codes.description
-       , purpose_codes.description       
-       , a.* 
-from activities a, employees employees, entities entities 
-	, assessment_areas assessment_areas, disaster_types disaster_types, declaration_types declaration_types
-    , assistance_types assistance_types, service_types service_types, investment_types investment_types
-    , loan_types loan_types, call_codes call_codes, collateral_codes collateral_codes, purpose_codes purpose_codes
-where a.employee_id = employees.id
-	and a.entity_id = entities.id
-    and a.assessment_area_id = assessment_areas.id
-    and a.disaster_type_id = disaster_types.id
-    and a.declaration_type_id = declaration_types.id
-    and a.assistance_type_id = assistance_types.id
-    and a.service_type_id = service_types.id
-    and a.investment_type_id = investment_types.id
-    and a.loan_type_id = loan_types.id
-    and a.call_code_id = call_codes.id
-    and a.collateral_code_id = collateral_codes.id
-    and a.purpose_code_id = purpose_codes.id
-
-=end
