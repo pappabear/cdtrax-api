@@ -7,7 +7,7 @@ class ActivitiesController < ApplicationController
 
   # GET /activities
   def index
-    @activities = Activity.find_by_sql(getViewSQL)
+    @activities = Activity.find_by_sql(getViewSQL + " order by activity_dt")
     json_response(@activities)
   end
 
@@ -40,7 +40,7 @@ class ActivitiesController < ApplicationController
 
   def activity_params
     # whitelist params
-    params.permit(:activity_dt, :activity_type, :purpose_code_id,
+    params.permit(:activity_dt, :activity_type_id, :purpose_code_id,
                                 :employee_id, :entity_id, 
                                 :contact_name, :assessment_area_id, :disaster_number, 
                                 :disaster_start_dt, :disaster_end_dt, 
@@ -74,7 +74,6 @@ class ActivitiesController < ApplicationController
            ,TO_CHAR(a.disaster_start_dt, 'MM/DD/YYYY') disaster_start_dt_formatted
            ,TO_CHAR(a.disaster_end_dt, 'MM/DD/YYYY') disaster_end_dt_formatted
            ,TO_CHAR(a.maturity_dt, 'MM/DD/YYYY') maturity_dt_formatted
-           ,a.activity_type
            ,a.contact_name
            ,a.disaster_number
            ,a.related_service_flag
@@ -138,6 +137,7 @@ class ActivitiesController < ApplicationController
            ,l.description call_code_description
     	     ,a.collateral_code_id
            ,m.description collateral_code_description      
+           ,n.description activity_type_description
     from activities a
           full outer join purpose_codes b on a.purpose_code_id = b.id
           full outer join employees c on a.employee_id = c.id
@@ -150,7 +150,8 @@ class ActivitiesController < ApplicationController
           full outer join investment_types j on a.investment_type_id = j.id
           full outer join loan_types k on a.loan_type_id = k.id
           full outer join call_codes l on a.call_code_id = l.id
-          full outer join collateral_codes m on a.collateral_code_id = m.id"
+          full outer join collateral_codes m on a.collateral_code_id = m.id
+          full outer join activity_types n on a.activity_type_id = n.id"
     
     return sql
 

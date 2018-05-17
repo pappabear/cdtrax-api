@@ -11,5 +11,6 @@ class Activity < ApplicationRecord
   has_one :loan_type
   has_one :call_code
   has_one :collateral_code
+  has_one :activity_type
   
 end

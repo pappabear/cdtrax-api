@@ -1,4 +1,4 @@
-=begin
+
 Bank.destroy_all
 AssessmentArea.destroy_all
 Branch.destroy_all
@@ -13,12 +13,12 @@ DeclarationType.destroy_all
 AssistanceType.destroy_all
 Employee.destroy_all
 Entity.destroy_all
-=end
+ActivityType.destroy_all
 Activity.destroy_all
 
-=begin
+
 Bank.create(code: 'LCB', description: 'Racoon City Bank')
-#Bank.create(code: 'CCB', description: 'Red Canyon Bank')
+Bank.create(code: 'CCB', description: 'Red Canyon Bank')
 
 AssessmentArea.create(code: '21140', description: 'Elkhart/ Goshen/ Nappanee', bank_id:Bank.first.id)
 AssessmentArea.create(code: '23060', description: 'Fort Wayne/ Columbia City/ South Whitley', bank_id:Bank.first.id)
@@ -467,14 +467,14 @@ Entity.create(	name:	'West Central Elementary',	address:	'1842 S US 421',	city:	
 Entity.create(	name:	'Elkhart Memorial Dollars for Scholars',	address:	'2608 California Road',	city:	'Elkhart',	state:	'IN',	zip:	'46514',	phone:	'(574) 262-5637',	website:	'',	revenue:	'0',	number_of_employees:	'0',	mission:	Faker::StarWars.quote)
 
 
-# rails g model Activity activity_dt:date activity_type:string purpose_code_id:integer employee_id:integer entity_id:integer contact_name:string assessment_area_id:integer disaster_number:string disaster_start_dt:date disaster_end_dt:date disaster_type_id:integer declaration_type_id:integer assistance_type_id:integer related_service_flag:boolean related_investment_flag:boolean related_loan_flag:boolean lmi_percentage:integer is_benefit_statewide:boolean is_benefit_investment:boolean is_benefit_empowerment:boolean is_benefit_distressed:boolean is_benefit_underserved:boolean is_benefit_disaster:boolean notes:text service_type_id:integer hours:integer cra_hours:integer is_financial_expertise:boolean investment_type_id:integer cusip_number:string maturity_dt:date original_amount:integer book_value:integer unfunded_committment:integer percent_of_entity_funding:integer account_number:string loan_number:string loan_type_id:integer call_code_id:integer collateral_code_id:integer address:string city:string state:string zip:string term:string is_cra_qualified:boolean is_3rd_party:boolean is_affiliate:boolean state_code:string county_code:string tract:string msa:string income_id:integer minority_id:integer
+ActivityType.create( description: 'Investment' )
+ActivityType.create( description: 'Service' )
+ActivityType.create( description: 'Loan' )
 
-
-=end
 
 # prepare one activity record that has only minimal data
 Activity.create( activity_dt:Faker::Date.between(3.months.ago, Date.today-1),
-               activity_type:'left outer join test')
+                 activity_type_id:Random.new.rand(ActivityType.first.id..ActivityType.last.id))
 
 # prepare a volume of random data
 100.times do |i|
@@ -484,57 +484,56 @@ Activity.create( activity_dt:Faker::Date.between(3.months.ago, Date.today-1),
 
                  
   Activity.create( activity_dt:Faker::Date.between(3.months.ago, Date.today-1),
-                 activity_type:Faker::Lorem.sentence, 
-                 purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
-                 employee_id:Random.new.rand(Employee.first.id..Employee.last.id),
-                 entity_id:Random.new.rand(Entity.first.id..Entity.last.id), 
-                 contact_name:Faker::Name.name,                  
-                 assessment_area_id:Random.new.rand(AssessmentArea.first.id..AssessmentArea.last.id), 
-                 disaster_number:Random.new.rand(10000..20000).to_s, 
-                 disaster_start_dt:disaster_start_dt, 
-                 disaster_end_dt:disaster_end_dt, 
-                 disaster_type_id:Random.new.rand(DisasterType.first.id..DisasterType.last.id), 
-                 declaration_type_id:Random.new.rand(DeclarationType.first.id..DeclarationType.last.id), 
-                 assistance_type_id:Random.new.rand(AssistanceType.first.id..AssistanceType.last.id), 
-                 related_service_flag:Faker::Boolean.boolean, 
-                 related_investment_flag:Faker::Boolean.boolean, 
-                 related_loan_flag:Faker::Boolean.boolean, 
-                 lmi_percentage:15, 
-                 is_benefit_statewide:Faker::Boolean.boolean, 
-                 is_benefit_investment:Faker::Boolean.boolean, 
-                 is_benefit_empowerment:Faker::Boolean.boolean, 
-                 is_benefit_distressed:Faker::Boolean.boolean, 
-                 is_benefit_underserved:Faker::Boolean.boolean, 
-                 is_benefit_disaster:Faker::Boolean.boolean, 
-                 #notes:text, 
-                 service_type_id:Random.new.rand(ServiceType.first.id..ServiceType.last.id), 
-                 hours:5, 
-                 cra_hours:3, 
-                 is_financial_expertise:Faker::Boolean.boolean, 
-                 investment_type_id:Random.new.rand(InvestmentType.first.id..InvestmentType.last.id), 
-                 cusip_number:Faker::Business.credit_card_number, 
-                 maturity_dt:Faker::Date.forward(1000), 
-                 original_amount:'50,000', 
-                 book_value:'75,000', 
-                 unfunded_committment:'10,000', 
-                 percent_of_entity_funding:'10', 
-                 account_number:Faker::Business.credit_card_number, 
-                 loan_number:Faker::Business.credit_card_number, 
-                 loan_type_id:Random.new.rand(LoanType.first.id..LoanType.last.id), 
-                 call_code_id:Random.new.rand(CallCode.first.id..CallCode.last.id), 
-                 collateral_code_id:Random.new.rand(CollateralCode.first.id..CollateralCode.last.id), 
-                 address:Faker::Address.street_address, 
-                 city:Faker::Address.city, 
-                 state:Faker::Address.state_abbr, 
-                 zip:Faker::Address.zip, 
-                 term:'5', 
-                 is_cra_qualified:Faker::Boolean.boolean, 
-                 is_3rd_party:Faker::Boolean.boolean, 
-                 is_affiliate:Faker::Boolean.boolean, 
-                 state_code:'state_code', 
-                 county_code:'county_code', 
-                 tract:'tract', 
-                 msa:'msa' 
+                   activity_type_id:Random.new.rand(ActivityType.first.id..ActivityType.last.id), 
+                   purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
+                   employee_id:Random.new.rand(Employee.first.id..Employee.last.id),
+                   entity_id:Random.new.rand(Entity.first.id..Entity.last.id), 
+                   contact_name:Faker::Name.name,                  
+                   assessment_area_id:Random.new.rand(AssessmentArea.first.id..AssessmentArea.last.id), 
+                   disaster_number:Random.new.rand(10000..20000).to_s, 
+                   disaster_start_dt:disaster_start_dt, 
+                   disaster_end_dt:disaster_end_dt, 
+                   disaster_type_id:Random.new.rand(DisasterType.first.id..DisasterType.last.id), 
+                   declaration_type_id:Random.new.rand(DeclarationType.first.id..DeclarationType.last.id), 
+                   assistance_type_id:Random.new.rand(AssistanceType.first.id..AssistanceType.last.id), 
+                   related_service_flag:Faker::Boolean.boolean, 
+                   related_investment_flag:Faker::Boolean.boolean, 
+                   related_loan_flag:Faker::Boolean.boolean, 
+                   lmi_percentage:15, 
+                   is_benefit_statewide:Faker::Boolean.boolean, 
+                   is_benefit_investment:Faker::Boolean.boolean, 
+                   is_benefit_empowerment:Faker::Boolean.boolean, 
+                   is_benefit_distressed:Faker::Boolean.boolean, 
+                   is_benefit_underserved:Faker::Boolean.boolean, 
+                   is_benefit_disaster:Faker::Boolean.boolean, 
+                   service_type_id:Random.new.rand(ServiceType.first.id..ServiceType.last.id), 
+                   hours:5, 
+                   cra_hours:3, 
+                   is_financial_expertise:Faker::Boolean.boolean, 
+                   investment_type_id:Random.new.rand(InvestmentType.first.id..InvestmentType.last.id), 
+                   cusip_number:Faker::Business.credit_card_number, 
+                   maturity_dt:Faker::Date.forward(1000), 
+                   original_amount:'50,000', 
+                   book_value:'75,000', 
+                   unfunded_committment:'10,000', 
+                   percent_of_entity_funding:'10', 
+                   account_number:Faker::Business.credit_card_number, 
+                   loan_number:Faker::Business.credit_card_number, 
+                   loan_type_id:Random.new.rand(LoanType.first.id..LoanType.last.id), 
+                   call_code_id:Random.new.rand(CallCode.first.id..CallCode.last.id), 
+                   collateral_code_id:Random.new.rand(CollateralCode.first.id..CollateralCode.last.id), 
+                   address:Faker::Address.street_address, 
+                   city:Faker::Address.city, 
+                   state:Faker::Address.state_abbr, 
+                   zip:Faker::Address.zip, 
+                   term:'5', 
+                   is_cra_qualified:Faker::Boolean.boolean, 
+                   is_3rd_party:Faker::Boolean.boolean, 
+                   is_affiliate:Faker::Boolean.boolean, 
+                   state_code:'state_code', 
+                   county_code:'county_code', 
+                   tract:'tract', 
+                   msa:'msa' 
                  )
   end
 

@@ -2,7 +2,7 @@ class CreateActivities < ActiveRecord::Migration[5.0]
   def change
     create_table :activities do |t|
       t.date :activity_dt
-      t.string :activity_type
+      t.integer :activity_type_id
       t.integer :purpose_code_id
       t.integer :employee_id
       t.integer :entity_id

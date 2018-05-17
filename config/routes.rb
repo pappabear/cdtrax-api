@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   resources :entities
   resources :employees
   resources :activities 
+  resources :activity_types
   
 end
