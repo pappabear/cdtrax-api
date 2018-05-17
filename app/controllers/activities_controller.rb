@@ -137,6 +137,7 @@ class ActivitiesController < ApplicationController
            ,l.description call_code_description
     	     ,a.collateral_code_id
            ,m.description collateral_code_description      
+           ,a.activity_type_id
            ,n.description activity_type_description
     from activities a
           full outer join purpose_codes b on a.purpose_code_id = b.id
