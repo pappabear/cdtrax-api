@@ -20,6 +20,10 @@ Activity.destroy_all
 Bank.create(code: 'LCB', description: 'Racoon City Bank')
 Bank.create(code: 'CCB', description: 'Red Canyon Bank')
 
+1000.times do |b|
+  Bank.create(code: b, description: Faker::Name.name)
+end
+
 AssessmentArea.create(code: '21140', description: 'Elkhart/ Goshen/ Nappanee', bank_id:Bank.first.id)
 AssessmentArea.create(code: '23060', description: 'Fort Wayne/ Columbia City/ South Whitley', bank_id:Bank.first.id)
 AssessmentArea.create(code: 'Non-MSA', description: 'Non-MSA', bank_id:Bank.last.id)

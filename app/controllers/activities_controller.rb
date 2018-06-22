@@ -140,19 +140,19 @@ class ActivitiesController < ApplicationController
            ,a.activity_type_id
            ,n.description activity_type_description
     from activities a
-          full outer join purpose_codes b on a.purpose_code_id = b.id
-          full outer join employees c on a.employee_id = c.id
-          full outer join entities d on a.entity_id = d.id
-          full outer join assessment_areas e on a.assessment_area_id = e.id
-          full outer join disaster_types f on a.disaster_type_id = f.id
-          full outer join declaration_types g on a.declaration_type_id = g.id
-          full outer join assistance_types h on a.assistance_type_id = h.id
-          full outer join service_types i on a.service_type_id = i.id
-          full outer join investment_types j on a.investment_type_id = j.id
-          full outer join loan_types k on a.loan_type_id = k.id
-          full outer join call_codes l on a.call_code_id = l.id
-          full outer join collateral_codes m on a.collateral_code_id = m.id
-          full outer join activity_types n on a.activity_type_id = n.id"
+          left outer join purpose_codes b on a.purpose_code_id = b.id
+          left outer join employees c on a.employee_id = c.id
+          left outer join entities d on a.entity_id = d.id
+          left outer join assessment_areas e on a.assessment_area_id = e.id
+          left outer join disaster_types f on a.disaster_type_id = f.id
+          left outer join declaration_types g on a.declaration_type_id = g.id
+          left outer join assistance_types h on a.assistance_type_id = h.id
+          left outer join service_types i on a.service_type_id = i.id
+          left outer join investment_types j on a.investment_type_id = j.id
+          left outer join loan_types k on a.loan_type_id = k.id
+          left outer join call_codes l on a.call_code_id = l.id
+          left outer join collateral_codes m on a.collateral_code_id = m.id
+          left outer join activity_types n on a.activity_type_id = n.id"
     
     return sql
 
