@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   resources :activities 
   resources :activity_types
   
+  get '/dashboard/get_service_hours_dashboard_data', :to => 'dashboard#get_service_hours_dashboard_data'
+  
 end
