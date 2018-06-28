@@ -10,73 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180517180426) do
+ActiveRecord::Schema.define(version: 20180628151632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "activities", force: :cascade do |t|
-    t.date     "activity_dt"
-    t.integer  "activity_type_id"
-    t.integer  "purpose_code_id"
-    t.integer  "employee_id"
-    t.integer  "entity_id"
-    t.string   "contact_name"
-    t.integer  "assessment_area_id"
-    t.string   "disaster_number"
-    t.date     "disaster_start_dt"
-    t.date     "disaster_end_dt"
-    t.integer  "disaster_type_id"
-    t.integer  "declaration_type_id"
-    t.integer  "assistance_type_id"
-    t.boolean  "related_service_flag"
-    t.boolean  "related_investment_flag"
-    t.boolean  "related_loan_flag"
-    t.integer  "lmi_percentage"
-    t.boolean  "is_benefit_statewide"
-    t.boolean  "is_benefit_investment"
-    t.boolean  "is_benefit_empowerment"
-    t.boolean  "is_benefit_distressed"
-    t.boolean  "is_benefit_underserved"
-    t.boolean  "is_benefit_disaster"
-    t.text     "notes"
-    t.integer  "service_type_id"
-    t.integer  "hours"
-    t.integer  "cra_hours"
-    t.boolean  "is_financial_expertise"
-    t.integer  "investment_type_id"
-    t.string   "cusip_number"
-    t.date     "maturity_dt"
-    t.integer  "original_amount"
-    t.integer  "book_value"
-    t.integer  "unfunded_committment"
-    t.integer  "percent_of_entity_funding"
-    t.string   "account_number"
-    t.string   "loan_number"
-    t.integer  "loan_type_id"
-    t.integer  "call_code_id"
-    t.integer  "collateral_code_id"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "term"
-    t.boolean  "is_cra_qualified"
-    t.boolean  "is_3rd_party"
-    t.boolean  "is_affiliate"
-    t.string   "state_code"
-    t.string   "county_code"
-    t.string   "tract"
-    t.string   "msa"
-    t.integer  "income_id"
-    t.integer  "minority_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  create_table "activity_types", force: :cascade do |t|
-    t.string "description"
-  end
 
   create_table "assessment_areas", force: :cascade do |t|
     t.string   "code"
@@ -86,26 +23,11 @@ ActiveRecord::Schema.define(version: 20180517180426) do
     t.integer  "bank_id"
   end
 
-  create_table "assistance_types", force: :cascade do |t|
-    t.string   "code"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "banks", force: :cascade do |t|
     t.string   "code"
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "branches", force: :cascade do |t|
-    t.string   "code"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "bank_id"
   end
 
   create_table "call_codes", force: :cascade do |t|
@@ -122,46 +44,6 @@ ActiveRecord::Schema.define(version: 20180517180426) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "declaration_types", force: :cascade do |t|
-    t.string   "code"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "disaster_types", force: :cascade do |t|
-    t.string   "code"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "employees", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
-    t.string   "title"
-    t.integer  "default_bank_id"
-    t.integer  "default_branch_id"
-    t.boolean  "is_user"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  create_table "entities", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "phone"
-    t.string   "revenue"
-    t.string   "website"
-    t.string   "number_of_employees"
-    t.text     "mission"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
   create_table "investment_types", force: :cascade do |t|
     t.string   "code"
     t.string   "description"
@@ -169,11 +51,65 @@ ActiveRecord::Schema.define(version: 20180517180426) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "investments", force: :cascade do |t|
+    t.integer  "purpose_code_id"
+    t.integer  "organization_id"
+    t.integer  "investment_type_id"
+    t.string   "cusip_number"
+    t.date     "maturity_dt"
+    t.string   "original_amount"
+    t.string   "book_value"
+    t.string   "unfunded_committment"
+    t.string   "percent_of_entity_funding"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.date     "activity_dt"
+  end
+
   create_table "loan_types", force: :cascade do |t|
     t.string   "code"
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "loans", force: :cascade do |t|
+    t.integer  "purpose_code_id"
+    t.integer  "organization_id"
+    t.string   "account_number"
+    t.string   "loan_number"
+    t.integer  "loan_type_id"
+    t.integer  "call_code_id"
+    t.integer  "collateral_code_id"
+    t.string   "lien_address"
+    t.string   "lien_city"
+    t.string   "lien_state"
+    t.string   "lien_zip"
+    t.string   "term"
+    t.boolean  "is_cra_qualified"
+    t.boolean  "is_3rd_party"
+    t.boolean  "is_affiliate"
+    t.string   "state_code"
+    t.string   "county_code"
+    t.string   "tract"
+    t.string   "msa"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.date     "activity_dt"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.float    "revenue"
+    t.integer  "number_of_employees"
+    t.text     "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "website"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "purpose_codes", force: :cascade do |t|
@@ -188,6 +124,27 @@ ActiveRecord::Schema.define(version: 20180517180426) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.integer  "purpose_code_id"
+    t.integer  "volunteer_id"
+    t.integer  "organization_id"
+    t.integer  "assessment_area_id"
+    t.integer  "service_type_id"
+    t.integer  "total_hours"
+    t.integer  "cra_hours"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.date     "activity_dt"
+  end
+
+  create_table "volunteers", force: :cascade do |t|
+    t.string   "employee_code"
+    t.string   "name"
+    t.string   "title"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end

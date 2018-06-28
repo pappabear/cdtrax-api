@@ -1,6 +1,6 @@
 class InvestmentType < ApplicationRecord
 
-    has_many :activity
+    has_many :investments
     
     validates_presence_of :code, :description
     
