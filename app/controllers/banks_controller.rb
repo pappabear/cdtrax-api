@@ -34,7 +34,7 @@ class BanksController < ApplicationController
   
     def bank_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:id, :code, :description)
     end
   
     def set_bank

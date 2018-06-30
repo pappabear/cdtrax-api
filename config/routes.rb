@@ -13,10 +13,11 @@ Rails.application.routes.draw do
   resources :disaster_types
   resources :declaration_types
   resources :assistance_types
-  resources :entities
-  resources :employees
-  resources :activities 
-  resources :activity_types
+  resources :volunteers
+  resources :organizations
+  resources :loans
+  resources :services
+  resources :investments
   
   get '/dashboard/get_service_hours_dashboard_data', :to => 'dashboard#get_service_hours_dashboard_data'
   

@@ -1,0 +1,610 @@
+[H[2J 
+ 
+ 
+ 
+ 
+ 
++------------------------------------------------
+| Welcome to the CDTrax backend-API Test Harness!
++------------------------------------------------
+ 
+ 
+ 
+ 
+ 
+REMINDER: Send the output to a log file and then search for 'ROLLBACK' or 'Unpermitted' for errors
+ 
+ 
+ 
+ 
+ 
+	Step 1 - Re-initializing the database...
+------------------------------------------------
+Dropped database 'cdtrax-api-development'
+Dropped database 'cdtrax-api-test'
+Created database 'cdtrax-api-development'
+Created database 'cdtrax-api-test'
+== 20180310133610 CreateBanks: migrating ======================================
+-- create_table(:banks)
+   -> 0.0045s
+== 20180310133610 CreateBanks: migrated (0.0046s) =============================
+
+== 20180310140510 CreateAssessmentAreas: migrating ============================
+-- create_table(:assessment_areas)
+   -> 0.0032s
+== 20180310140510 CreateAssessmentAreas: migrated (0.0032s) ===================
+
+== 20180310140512 CreateCallCodes: migrating ==================================
+-- create_table(:call_codes)
+   -> 0.0029s
+== 20180310140512 CreateCallCodes: migrated (0.0030s) =========================
+
+== 20180310140513 CreateCollateralCodes: migrating ============================
+-- create_table(:collateral_codes)
+   -> 0.0036s
+== 20180310140513 CreateCollateralCodes: migrated (0.0036s) ===================
+
+== 20180310140515 CreateInvestmentTypes: migrating ============================
+-- create_table(:investment_types)
+   -> 0.0034s
+== 20180310140515 CreateInvestmentTypes: migrated (0.0034s) ===================
+
+== 20180310140516 CreateLoanTypes: migrating ==================================
+-- create_table(:loan_types)
+   -> 0.0028s
+== 20180310140516 CreateLoanTypes: migrated (0.0029s) =========================
+
+== 20180310140517 CreateServiceTypes: migrating ===============================
+-- create_table(:service_types)
+   -> 0.0035s
+== 20180310140517 CreateServiceTypes: migrated (0.0035s) ======================
+
+== 20180310140518 CreatePurposeCodes: migrating ===============================
+-- create_table(:purpose_codes)
+   -> 0.0027s
+== 20180310140518 CreatePurposeCodes: migrated (0.0027s) ======================
+
+== 20180402203227 AddBankToAssessmentAreas: migrating =========================
+-- add_column(:assessment_areas, :bank_id, :integer)
+   -> 0.0006s
+== 20180402203227 AddBankToAssessmentAreas: migrated (0.0006s) ================
+
+== 20180628101651 CreateOrganizations: migrating ==============================
+-- create_table(:organizations)
+   -> 0.0031s
+== 20180628101651 CreateOrganizations: migrated (0.0031s) =====================
+
+== 20180628101703 CreateVolunteers: migrating =================================
+-- create_table(:volunteers)
+   -> 0.0025s
+== 20180628101703 CreateVolunteers: migrated (0.0026s) ========================
+
+== 20180628101705 CreateServices: migrating ===================================
+-- create_table(:services)
+   -> 0.0022s
+== 20180628101705 CreateServices: migrated (0.0022s) ==========================
+
+== 20180628101707 CreateLoans: migrating ======================================
+-- create_table(:loans)
+   -> 0.0030s
+== 20180628101707 CreateLoans: migrated (0.0031s) =============================
+
+== 20180628134724 CreateInvestments: migrating ================================
+-- create_table(:investments)
+   -> 0.0026s
+== 20180628134724 CreateInvestments: migrated (0.0026s) =======================
+
+== 20180628151602 AddActivityDtToServices: migrating ==========================
+-- add_column(:services, :activity_dt, :date)
+   -> 0.0009s
+== 20180628151602 AddActivityDtToServices: migrated (0.0010s) =================
+
+== 20180628151623 AddActivityDtToLoans: migrating =============================
+-- add_column(:loans, :activity_dt, :date)
+   -> 0.0008s
+== 20180628151623 AddActivityDtToLoans: migrated (0.0009s) ====================
+
+== 20180628151632 AddActivityDtToInvestments: migrating =======================
+-- add_column(:investments, :activity_dt, :date)
+   -> 0.0006s
+== 20180628151632 AddActivityDtToInvestments: migrated (0.0006s) ==============
+
+ 
+ 
+ 
+ 
+ 
+	Step 2 - Starting the API...
+------------------------------------------------
+=> Booting Puma
+=> Rails 5.0.6 application starting in development on http://localhost:3001
+=> Run `rails server -h` for more startup options
+Puma starting in single mode...
+* Version 3.11.3 (ruby 2.2.5-p319), codename: Love Song
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://localhost:3001
+Use Ctrl-C to stop
+ 
+ 
+ 
+ 
+ 
+	Step 3 - Testing the API...
+------------------------------------------------
+ 
+ 
+ 
+	Testing /banks...
+------------------------------------------------
+Started POST "/banks" for 127.0.0.1 at 2018-06-30 07:58:21 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by BanksController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "banks" ("code", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:21.917653"], ["updated_at", "2018-06-30 11:58:21.917653"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 17ms (Views: 0.6ms | ActiveRecord: 7.3ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:21.917Z","updated_at":"2018-06-30T11:58:21.917Z"}Started GET "/banks" for 127.0.0.1 at 2018-06-30 07:58:21 -0400
+Processing by BanksController#index as */*
+  [1m[36mBank Load (0.6ms)[0m  [1m[34mSELECT "banks".* FROM "banks"[0m
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.6ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:21.917Z","updated_at":"2018-06-30T11:58:21.917Z"}]Started GET "/banks/1" for 127.0.0.1 at 2018-06-30 07:58:21 -0400
+Processing by BanksController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mBank Load (0.2ms)[0m  [1m[34mSELECT  "banks".* FROM "banks" WHERE "banks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.4ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:21.917Z","updated_at":"2018-06-30T11:58:21.917Z"}Started PUT "/banks/1" for 127.0.0.1 at 2018-06-30 07:58:21 -0400
+Processing by BanksController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mBank Load (0.3ms)[0m  [1m[34mSELECT  "banks".* FROM "banks" WHERE "banks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "banks" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "banks"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:21.985492"], ["id", 1]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 6ms (ActiveRecord: 2.8ms)
+
+
+	Testing /assessment_areas...
+------------------------------------------------
+Started POST "/assessment_areas" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by AssessmentAreasController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF", "bank_id"=>"1"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBank Load (0.3ms)[0m  [1m[34mSELECT  "banks".* FROM "banks" WHERE "banks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "assessment_areas" ("code", "description", "created_at", "updated_at", "bank_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:22.024357"], ["updated_at", "2018-06-30 11:58:22.024357"], ["bank_id", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 22ms (Views: 0.4ms | ActiveRecord: 6.0ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.024Z","updated_at":"2018-06-30T11:58:22.024Z","bank_id":1}Started GET "/assessment_areas" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by AssessmentAreasController#index as */*
+  [1m[36mAssessmentArea Load (0.7ms)[0m  [1m[34mselect a.*, b.description as bank_description from assessment_areas a, banks b where a.bank_id = b.id[0m
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.7ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.024Z","updated_at":"2018-06-30T11:58:22.024Z","bank_id":1,"bank_description":"DEFx"}]Started GET "/assessment_areas/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by AssessmentAreasController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mAssessmentArea Load (0.2ms)[0m  [1m[34mSELECT  "assessment_areas".* FROM "assessment_areas" WHERE "assessment_areas"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.024Z","updated_at":"2018-06-30T11:58:22.024Z","bank_id":1}Started PUT "/assessment_areas/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by AssessmentAreasController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mAssessmentArea Load (0.3ms)[0m  [1m[34mSELECT  "assessment_areas".* FROM "assessment_areas" WHERE "assessment_areas"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBank Load (0.1ms)[0m  [1m[34mSELECT  "banks".* FROM "banks" WHERE "banks"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "assessment_areas" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "assessment_areas"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:22.074787"], ["id", 1]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 7ms (ActiveRecord: 3.1ms)
+
+
+	Testing /call_codes...
+------------------------------------------------
+Started POST "/call_codes" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CallCodesController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "call_codes" ("code", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:22.100176"], ["updated_at", "2018-06-30 11:58:22.100176"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 10ms (Views: 0.5ms | ActiveRecord: 3.4ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.100Z","updated_at":"2018-06-30T11:58:22.100Z"}Started GET "/call_codes" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CallCodesController#index as */*
+  [1m[36mCallCode Load (0.4ms)[0m  [1m[34mSELECT "call_codes".* FROM "call_codes"[0m
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.4ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.100Z","updated_at":"2018-06-30T11:58:22.100Z"}]Started GET "/call_codes/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CallCodesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mCallCode Load (0.3ms)[0m  [1m[34mSELECT  "call_codes".* FROM "call_codes" WHERE "call_codes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.3ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.100Z","updated_at":"2018-06-30T11:58:22.100Z"}Started PUT "/call_codes/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CallCodesController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mCallCode Load (0.2ms)[0m  [1m[34mSELECT  "call_codes".* FROM "call_codes" WHERE "call_codes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "call_codes" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "call_codes"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:22.149042"], ["id", 1]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 5ms (ActiveRecord: 2.5ms)
+
+
+	Testing /collateral_codes...
+------------------------------------------------
+Started POST "/collateral_codes" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CollateralCodesController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "collateral_codes" ("code", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:22.176223"], ["updated_at", "2018-06-30 11:58:22.176223"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 3.9ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.176Z","updated_at":"2018-06-30T11:58:22.176Z"}Started GET "/collateral_codes" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CollateralCodesController#index as */*
+  [1m[36mCollateralCode Load (0.4ms)[0m  [1m[34mSELECT "collateral_codes".* FROM "collateral_codes"[0m
+Completed 200 OK in 2ms (Views: 0.8ms | ActiveRecord: 0.4ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.176Z","updated_at":"2018-06-30T11:58:22.176Z"}]Started GET "/collateral_codes/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CollateralCodesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mCollateralCode Load (0.2ms)[0m  [1m[34mSELECT  "collateral_codes".* FROM "collateral_codes" WHERE "collateral_codes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.176Z","updated_at":"2018-06-30T11:58:22.176Z"}Started PUT "/collateral_codes/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by CollateralCodesController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mCollateralCode Load (0.2ms)[0m  [1m[34mSELECT  "collateral_codes".* FROM "collateral_codes" WHERE "collateral_codes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "collateral_codes" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "collateral_codes"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:22.225519"], ["id", 1]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 5ms (ActiveRecord: 2.7ms)
+
+
+	Testing /investment_types...
+------------------------------------------------
+Started POST "/investment_types" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentTypesController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "investment_types" ("code", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:22.253994"], ["updated_at", "2018-06-30 11:58:22.253994"]]
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 12ms (Views: 0.3ms | ActiveRecord: 4.0ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.253Z","updated_at":"2018-06-30T11:58:22.253Z"}Started GET "/investment_types" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentTypesController#index as */*
+  [1m[36mInvestmentType Load (0.5ms)[0m  [1m[34mSELECT "investment_types".* FROM "investment_types"[0m
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.253Z","updated_at":"2018-06-30T11:58:22.253Z"}]Started GET "/investment_types/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentTypesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mInvestmentType Load (0.2ms)[0m  [1m[34mSELECT  "investment_types".* FROM "investment_types" WHERE "investment_types"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.253Z","updated_at":"2018-06-30T11:58:22.253Z"}Started PUT "/investment_types/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentTypesController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mInvestmentType Load (0.2ms)[0m  [1m[34mSELECT  "investment_types".* FROM "investment_types" WHERE "investment_types"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[33mUPDATE "investment_types" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "investment_types"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:22.302505"], ["id", 1]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 5ms (ActiveRecord: 2.5ms)
+
+
+	Testing /loan_types...
+------------------------------------------------
+Started POST "/loan_types" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoanTypesController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "loan_types" ("code", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:22.334176"], ["updated_at", "2018-06-30 11:58:22.334176"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 16ms (Views: 0.3ms | ActiveRecord: 3.6ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.334Z","updated_at":"2018-06-30T11:58:22.334Z"}Started GET "/loan_types" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoanTypesController#index as */*
+  [1m[36mLoanType Load (0.4ms)[0m  [1m[34mSELECT "loan_types".* FROM "loan_types"[0m
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.4ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.334Z","updated_at":"2018-06-30T11:58:22.334Z"}]Started GET "/loan_types/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoanTypesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLoanType Load (0.2ms)[0m  [1m[34mSELECT  "loan_types".* FROM "loan_types" WHERE "loan_types"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.334Z","updated_at":"2018-06-30T11:58:22.334Z"}Started PUT "/loan_types/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoanTypesController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mLoanType Load (0.2ms)[0m  [1m[34mSELECT  "loan_types".* FROM "loan_types" WHERE "loan_types"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "loan_types" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "loan_types"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:22.383300"], ["id", 1]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 6ms (ActiveRecord: 2.7ms)
+
+
+	Testing /service_types...
+------------------------------------------------
+Started POST "/service_types" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServiceTypesController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "service_types" ("code", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:22.411336"], ["updated_at", "2018-06-30 11:58:22.411336"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 10ms (Views: 0.5ms | ActiveRecord: 3.7ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.411Z","updated_at":"2018-06-30T11:58:22.411Z"}Started GET "/service_types" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServiceTypesController#index as */*
+  [1m[36mServiceType Load (0.4ms)[0m  [1m[34mSELECT "service_types".* FROM "service_types"[0m
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.4ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.411Z","updated_at":"2018-06-30T11:58:22.411Z"}]Started GET "/service_types/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServiceTypesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mServiceType Load (0.2ms)[0m  [1m[34mSELECT  "service_types".* FROM "service_types" WHERE "service_types"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.411Z","updated_at":"2018-06-30T11:58:22.411Z"}Started PUT "/service_types/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServiceTypesController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mServiceType Load (0.2ms)[0m  [1m[34mSELECT  "service_types".* FROM "service_types" WHERE "service_types"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "service_types" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "service_types"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:22.461269"], ["id", 1]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 6ms (ActiveRecord: 2.8ms)
+
+
+	Testing /purpose_codes...
+------------------------------------------------
+Started POST "/purpose_codes" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by PurposeCodesController#create as */*
+  Parameters: {"code"=>"DEF", "description"=>"DEF"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "purpose_codes" ("code", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["code", "DEF"], ["description", "DEF"], ["created_at", "2018-06-30 11:58:22.487691"], ["updated_at", "2018-06-30 11:58:22.487691"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 2.9ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.487Z","updated_at":"2018-06-30T11:58:22.487Z"}Started GET "/purpose_codes" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by PurposeCodesController#index as */*
+  [1m[36mPurposeCode Load (0.4ms)[0m  [1m[34mSELECT "purpose_codes".* FROM "purpose_codes"[0m
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.4ms)
+
+
+[{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.487Z","updated_at":"2018-06-30T11:58:22.487Z"}]Started GET "/purpose_codes/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by PurposeCodesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mPurposeCode Load (0.2ms)[0m  [1m[34mSELECT  "purpose_codes".* FROM "purpose_codes" WHERE "purpose_codes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"code":"DEF","description":"DEF","created_at":"2018-06-30T11:58:22.487Z","updated_at":"2018-06-30T11:58:22.487Z"}Started PUT "/purpose_codes/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by PurposeCodesController#update as */*
+  Parameters: {"code"=>"DEFx", "description"=>"DEFx", "id"=>"1"}
+  [1m[36mPurposeCode Load (0.2ms)[0m  [1m[34mSELECT  "purpose_codes".* FROM "purpose_codes" WHERE "purpose_codes"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "purpose_codes" SET "code" = $1, "description" = $2, "updated_at" = $3 WHERE "purpose_codes"."id" = $4[0m  [["code", "DEFx"], ["description", "DEFx"], ["updated_at", "2018-06-30 11:58:22.536670"], ["id", 1]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 5ms (ActiveRecord: 2.5ms)
+
+
+	Testing /volunteers...
+------------------------------------------------
+Started POST "/volunteers" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by VolunteersController#create as */*
+  Parameters: {"employee_code"=>"DEF", "name"=>"DEF", "title"=>"wowee"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "volunteers" ("employee_code", "name", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["employee_code", "DEF"], ["name", "DEF"], ["title", "wowee"], ["created_at", "2018-06-30 11:58:22.562278"], ["updated_at", "2018-06-30 11:58:22.562278"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 10ms (Views: 0.4ms | ActiveRecord: 3.2ms)
+
+
+{"id":1,"employee_code":"DEF","name":"DEF","title":"wowee","created_at":"2018-06-30T11:58:22.562Z","updated_at":"2018-06-30T11:58:22.562Z"}Started GET "/volunteers" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by VolunteersController#index as */*
+  [1m[36mVolunteer Load (0.4ms)[0m  [1m[34mSELECT "volunteers".* FROM "volunteers"[0m
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.4ms)
+
+
+[{"id":1,"employee_code":"DEF","name":"DEF","title":"wowee","created_at":"2018-06-30T11:58:22.562Z","updated_at":"2018-06-30T11:58:22.562Z"}]Started GET "/volunteers/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by VolunteersController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mVolunteer Load (0.3ms)[0m  [1m[34mSELECT  "volunteers".* FROM "volunteers" WHERE "volunteers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.3ms)
+
+
+{"id":1,"employee_code":"DEF","name":"DEF","title":"wowee","created_at":"2018-06-30T11:58:22.562Z","updated_at":"2018-06-30T11:58:22.562Z"}Started PUT "/volunteers/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by VolunteersController#update as */*
+  Parameters: {"employee_code"=>"DEFx", "name"=>"DEFx", "title"=>"woweex", "id"=>"1"}
+  [1m[36mVolunteer Load (0.2ms)[0m  [1m[34mSELECT  "volunteers".* FROM "volunteers" WHERE "volunteers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "volunteers" SET "employee_code" = $1, "name" = $2, "title" = $3, "updated_at" = $4 WHERE "volunteers"."id" = $5[0m  [["employee_code", "DEFx"], ["name", "DEFx"], ["title", "woweex"], ["updated_at", "2018-06-30 11:58:22.611314"], ["id", 1]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 5ms (ActiveRecord: 2.8ms)
+
+
+	Testing /organizations...
+------------------------------------------------
+Started POST "/organizations" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by OrganizationsController#create as */*
+  Parameters: {"name"=>"Lutheran", "address"=>"330", "city"=>"Fort", "state"=>"IN", "zip"=>"46502", "phone"=>"260", "website"=>"www", "revenue"=>"0", "number_of_employees"=>"0"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "organizations" ("name", "phone", "revenue", "number_of_employees", "address", "city", "state", "zip", "website", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["name", "Lutheran"], ["phone", "260"], ["revenue", 0.0], ["number_of_employees", 0], ["address", "330"], ["city", "Fort"], ["state", "IN"], ["zip", "46502"], ["website", "www"], ["created_at", "2018-06-30 11:58:22.642095"], ["updated_at", "2018-06-30 11:58:22.642095"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 14ms (Views: 0.5ms | ActiveRecord: 3.5ms)
+
+
+{"id":1,"name":"Lutheran","phone":"260","revenue":0.0,"number_of_employees":0,"address":"330","city":"Fort","state":"IN","zip":"46502","website":"www","created_at":"2018-06-30T11:58:22.642Z","updated_at":"2018-06-30T11:58:22.642Z"}Started GET "/organizations" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by OrganizationsController#index as */*
+  [1m[36mOrganization Load (0.5ms)[0m  [1m[34mSELECT "organizations".* FROM "organizations"[0m
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.5ms)
+
+
+[{"id":1,"name":"Lutheran","phone":"260","revenue":0.0,"number_of_employees":0,"address":"330","city":"Fort","state":"IN","zip":"46502","website":"www","created_at":"2018-06-30T11:58:22.642Z","updated_at":"2018-06-30T11:58:22.642Z"}]Started GET "/organizations/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by OrganizationsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mOrganization Load (0.2ms)[0m  [1m[34mSELECT  "organizations".* FROM "organizations" WHERE "organizations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"name":"Lutheran","phone":"260","revenue":0.0,"number_of_employees":0,"address":"330","city":"Fort","state":"IN","zip":"46502","website":"www","created_at":"2018-06-30T11:58:22.642Z","updated_at":"2018-06-30T11:58:22.642Z"}Started PUT "/organizations/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by OrganizationsController#update as */*
+  Parameters: {"name"=>"Lutheranx", "address"=>"330", "city"=>"Fort", "state"=>"IN", "zip"=>"46502", "phone"=>"260", "website"=>"www", "revenue"=>"0", "number_of_employees"=>"0", "id"=>"1"}
+  [1m[36mOrganization Load (0.2ms)[0m  [1m[34mSELECT  "organizations".* FROM "organizations" WHERE "organizations"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "organizations" SET "name" = $1, "updated_at" = $2 WHERE "organizations"."id" = $3[0m  [["name", "Lutheranx"], ["updated_at", "2018-06-30 11:58:22.693142"], ["id", 1]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 6ms (ActiveRecord: 2.7ms)
+
+
+	Testing /services...
+------------------------------------------------
+Started POST "/services" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServicesController#create as */*
+  Parameters: {"activity_dt"=>"1", "purpose_code_id"=>"1", "volunteer_id"=>"1", "organization_id"=>"1", "service_type_id"=>"1", "assessment_area_id"=>"1", "total_hours"=>"1", "cra_hours"=>"1"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "services" ("purpose_code_id", "volunteer_id", "organization_id", "assessment_area_id", "service_type_id", "total_hours", "cra_hours", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["purpose_code_id", 1], ["volunteer_id", 1], ["organization_id", 1], ["assessment_area_id", 1], ["service_type_id", 1], ["total_hours", 1], ["cra_hours", 1], ["created_at", "2018-06-30 11:58:22.722796"], ["updated_at", "2018-06-30 11:58:22.722796"]]
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 14ms (Views: 0.5ms | ActiveRecord: 3.5ms)
+
+
+{"id":1,"purpose_code_id":1,"volunteer_id":1,"organization_id":1,"assessment_area_id":1,"service_type_id":1,"total_hours":1,"cra_hours":1,"created_at":"2018-06-30T11:58:22.722Z","updated_at":"2018-06-30T11:58:22.722Z","activity_dt":null}Started GET "/services" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServicesController#index as */*
+  [1m[36mService Load (0.5ms)[0m  [1m[34mSELECT "services".* FROM "services"[0m
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.5ms)
+
+
+[{"id":1,"purpose_code_id":1,"volunteer_id":1,"organization_id":1,"assessment_area_id":1,"service_type_id":1,"total_hours":1,"cra_hours":1,"created_at":"2018-06-30T11:58:22.722Z","updated_at":"2018-06-30T11:58:22.722Z","activity_dt":null}]Started GET "/services/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServicesController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT  "services".* FROM "services" WHERE "services"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"purpose_code_id":1,"volunteer_id":1,"organization_id":1,"assessment_area_id":1,"service_type_id":1,"total_hours":1,"cra_hours":1,"created_at":"2018-06-30T11:58:22.722Z","updated_at":"2018-06-30T11:58:22.722Z","activity_dt":null}Started PUT "/services/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by ServicesController#update as */*
+  Parameters: {"activity_dt"=>"1", "purpose_code_id"=>"1", "volunteer_id"=>"1", "organization_id"=>"1", "service_type_id"=>"1", "assessment_area_id"=>"1", "total_hours"=>"1", "cra_hours"=>"1", "id"=>"1"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT  "services".* FROM "services" WHERE "services"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 2ms (ActiveRecord: 0.4ms)
+
+
+	Testing /investments...
+------------------------------------------------
+Started POST "/investments" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentsController#create as */*
+  Parameters: {"activity_dt"=>"1", "purpose_code_id"=>"1", "organization_id"=>"1", "investment_type_id"=>"1", "cusip_number"=>"1", "maturity_dt"=>"1", "original_amount"=>"1", "book_value"=>"1", "unfunded_committment"=>"1", "percent_of_entity_funding"=>"42"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "investments" ("purpose_code_id", "organization_id", "investment_type_id", "cusip_number", "original_amount", "book_value", "unfunded_committment", "percent_of_entity_funding", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["purpose_code_id", 1], ["organization_id", 1], ["investment_type_id", 1], ["cusip_number", "1"], ["original_amount", "1"], ["book_value", "1"], ["unfunded_committment", "1"], ["percent_of_entity_funding", "42"], ["created_at", "2018-06-30 11:58:22.801708"], ["updated_at", "2018-06-30 11:58:22.801708"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 18ms (Views: 0.6ms | ActiveRecord: 5.1ms)
+
+
+{"id":1,"purpose_code_id":1,"organization_id":1,"investment_type_id":1,"cusip_number":"1","maturity_dt":null,"original_amount":"1","book_value":"1","unfunded_committment":"1","percent_of_entity_funding":"42","created_at":"2018-06-30T11:58:22.801Z","updated_at":"2018-06-30T11:58:22.801Z","activity_dt":null}Started GET "/investments" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentsController#index as */*
+  [1m[36mInvestment Load (0.5ms)[0m  [1m[34mSELECT "investments".* FROM "investments"[0m
+Completed 200 OK in 2ms (Views: 0.9ms | ActiveRecord: 0.5ms)
+
+
+[{"id":1,"purpose_code_id":1,"organization_id":1,"investment_type_id":1,"cusip_number":"1","maturity_dt":null,"original_amount":"1","book_value":"1","unfunded_committment":"1","percent_of_entity_funding":"42","created_at":"2018-06-30T11:58:22.801Z","updated_at":"2018-06-30T11:58:22.801Z","activity_dt":null}]Started GET "/investments/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mInvestment Load (0.2ms)[0m  [1m[34mSELECT  "investments".* FROM "investments" WHERE "investments"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"purpose_code_id":1,"organization_id":1,"investment_type_id":1,"cusip_number":"1","maturity_dt":null,"original_amount":"1","book_value":"1","unfunded_committment":"1","percent_of_entity_funding":"42","created_at":"2018-06-30T11:58:22.801Z","updated_at":"2018-06-30T11:58:22.801Z","activity_dt":null}Started PUT "/investments/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by InvestmentsController#update as */*
+  Parameters: {"activity_dt"=>"1", "purpose_code_id"=>"1", "organization_id"=>"1", "investment_type_id"=>"1", "cusip_number"=>"1", "maturity_dt"=>"1", "original_amount"=>"1", "book_value"=>"1", "unfunded_committment"=>"1", "percent_of_entity_funding"=>"42", "id"=>"1"}
+  [1m[36mInvestment Load (0.2ms)[0m  [1m[34mSELECT  "investments".* FROM "investments" WHERE "investments"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 3ms (ActiveRecord: 0.4ms)
+
+
+	Testing /loans...
+------------------------------------------------
+Started POST "/loans" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoansController#create as */*
+  Parameters: {"activity_dt"=>"1", "purpose_code_id"=>"1", "organization_id"=>"1", "account_number"=>"1", "loan_number"=>"1", "loan_type_id"=>"1", "call_code_id"=>"1", "collateral_code_id"=>"1", "lien_address"=>"1", "lien_city"=>"1", "lien_state"=>"1", "lien_zip"=>"1", "term"=>"1", "is_cra_qualified"=>"1", "is_3rd_party"=>"1", "is_affiliate"=>"1", "state_code"=>"1", "county_code"=>"1", "tract"=>"1", "msa"=>nil}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "loans" ("purpose_code_id", "organization_id", "account_number", "loan_number", "loan_type_id", "call_code_id", "collateral_code_id", "lien_address", "lien_city", "lien_state", "lien_zip", "term", "is_cra_qualified", "is_3rd_party", "is_affiliate", "state_code", "county_code", "tract", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING "id"[0m  [["purpose_code_id", 1], ["organization_id", 1], ["account_number", "1"], ["loan_number", "1"], ["loan_type_id", 1], ["call_code_id", 1], ["collateral_code_id", 1], ["lien_address", "1"], ["lien_city", "1"], ["lien_state", "1"], ["lien_zip", "1"], ["term", "1"], ["is_cra_qualified", "t"], ["is_3rd_party", "t"], ["is_affiliate", "t"], ["state_code", "1"], ["county_code", "1"], ["tract", "1"], ["created_at", "2018-06-30 11:58:22.885606"], ["updated_at", "2018-06-30 11:58:22.885606"]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 23ms (Views: 0.8ms | ActiveRecord: 5.7ms)
+
+
+{"id":1,"purpose_code_id":1,"organization_id":1,"account_number":"1","loan_number":"1","loan_type_id":1,"call_code_id":1,"collateral_code_id":1,"lien_address":"1","lien_city":"1","lien_state":"1","lien_zip":"1","term":"1","is_cra_qualified":true,"is_3rd_party":true,"is_affiliate":true,"state_code":"1","county_code":"1","tract":"1","msa":null,"created_at":"2018-06-30T11:58:22.885Z","updated_at":"2018-06-30T11:58:22.885Z","activity_dt":null}Started GET "/loans" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoansController#index as */*
+  [1m[36mLoan Load (0.6ms)[0m  [1m[34mSELECT "loans".* FROM "loans"[0m
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.6ms)
+
+
+[{"id":1,"purpose_code_id":1,"organization_id":1,"account_number":"1","loan_number":"1","loan_type_id":1,"call_code_id":1,"collateral_code_id":1,"lien_address":"1","lien_city":"1","lien_state":"1","lien_zip":"1","term":"1","is_cra_qualified":true,"is_3rd_party":true,"is_affiliate":true,"state_code":"1","county_code":"1","tract":"1","msa":null,"created_at":"2018-06-30T11:58:22.885Z","updated_at":"2018-06-30T11:58:22.885Z","activity_dt":null}]Started GET "/loans/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoansController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mLoan Load (0.2ms)[0m  [1m[34mSELECT  "loans".* FROM "loans" WHERE "loans"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.2ms)
+
+
+{"id":1,"purpose_code_id":1,"organization_id":1,"account_number":"1","loan_number":"1","loan_type_id":1,"call_code_id":1,"collateral_code_id":1,"lien_address":"1","lien_city":"1","lien_state":"1","lien_zip":"1","term":"1","is_cra_qualified":true,"is_3rd_party":true,"is_affiliate":true,"state_code":"1","county_code":"1","tract":"1","msa":null,"created_at":"2018-06-30T11:58:22.885Z","updated_at":"2018-06-30T11:58:22.885Z","activity_dt":null}Started PUT "/loans/1" for 127.0.0.1 at 2018-06-30 07:58:22 -0400
+Processing by LoansController#update as */*
+  Parameters: {"activity_dt"=>"1", "purpose_code_id"=>"1", "organization_id"=>"1", "account_number"=>"1", "loan_number"=>"1", "loan_type_id"=>"1", "call_code_id"=>"1", "collateral_code_id"=>"1", "lien_address"=>"1", "lien_city"=>"1", "lien_state"=>"1", "lien_zip"=>"1", "term"=>"1", "is_cra_qualified"=>"1", "is_3rd_party"=>"1", "is_affiliate"=>"1", "state_code"=>"1", "county_code"=>"1", "tract"=>"1", "msa"=>nil, "id"=>"1"}
+  [1m[36mLoan Load (0.2ms)[0m  [1m[34mSELECT  "loans".* FROM "loans" WHERE "loans"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 4ms (ActiveRecord: 0.5ms)
+
+
+ 
+ 
+ 
+ 
+ 
+	Step 4 - Seeding the database...
+------------------------------------------------
+Truncating all existing tables but NOT rebuilding the schema...
+Creating 'banks' picklist...
+Creating 'assessment areas' picklist...
+Creating 'call codes' picklist...
+Creating 'collateral codes' picklist...
+Creating 'investment types' picklist...
+Creating 'loan types' picklist...
+Creating 'service types' picklist...
+Creating 'purpose codes' picklist...
+Creating 'volunteers'...
+Creating 'organizations'...
+Creating 'service hours'...
+Creating 'loans'...
+Creating 'investments'...
+Done.
+ 
+ 
+ 
+ 
+ 
+------------------------------------------------
+Done.
+------------------------------------------------
+ 

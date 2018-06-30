@@ -34,7 +34,7 @@ class LoanTypesController < ApplicationController
   
     def loan_type_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:id, :code, :description)
     end
   
     def set_loan_type

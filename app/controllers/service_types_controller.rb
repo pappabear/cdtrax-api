@@ -34,7 +34,7 @@ class ServiceTypesController < ApplicationController
   
     def service_type_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:id, :code, :description)
     end
   
     def set_service_type

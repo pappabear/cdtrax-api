@@ -36,7 +36,7 @@ class AssessmentAreasController < ApplicationController
   
     def assessment_area_params
       # whitelist params
-      params.permit(:code, :description, :bank_id)
+      params.permit(:id, :code, :description, :bank_id)
     end
   
     def set_assessment_area

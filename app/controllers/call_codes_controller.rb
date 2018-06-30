@@ -34,7 +34,7 @@ class CallCodesController < ApplicationController
   
     def call_code_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:id, :code, :description)
     end
   
     def set_call_code

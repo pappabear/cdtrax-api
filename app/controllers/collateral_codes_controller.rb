@@ -34,7 +34,7 @@ class CollateralCodesController < ApplicationController
   
     def collateral_code_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:id, :code, :description)
     end
   
     def set_collateral_code

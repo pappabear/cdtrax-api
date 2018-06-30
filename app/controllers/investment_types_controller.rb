@@ -34,7 +34,7 @@ class InvestmentTypesController < ApplicationController
   
     def investment_type_params
       # whitelist params
-      params.permit(:code, :description)
+      params.permit(:id, :code, :description)
     end
   
     def set_investment_type
