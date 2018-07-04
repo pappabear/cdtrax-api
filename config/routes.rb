@@ -19,6 +19,6 @@ Rails.application.routes.draw do
   resources :services
   resources :investments
   
-  get '/dashboard/get_service_hours_dashboard_data', :to => 'dashboard#get_service_hours_dashboard_data'
+  get '/dashboard/service_hours_analytics', :to => 'dashboard#service_hours_analytics'
   
 end
