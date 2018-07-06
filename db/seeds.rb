@@ -403,54 +403,74 @@ Organization.create(	name:	'Elkhart Memorial Dollars for Scholars',	address:	'26
 
 puts "Creating 'service hours'..."
 10.times do |i|
+  h1=Random.new.rand(1..16)
+  h2=Random.new.rand(1..16)
+  t=[h1, h2].max
+  c=[h1, h2].min
   Service.create( activity_dt:Faker::Date.between(3.months.ago, Date.today-1),
                   purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
                   volunteer_id:Random.new.rand(Volunteer.first.id..Volunteer.last.id),
                   organization_id:Random.new.rand(Organization.first.id..Organization.last.id), 
                   service_type_id:Random.new.rand(ServiceType.first.id..ServiceType.last.id), 
                   assessment_area_id:Random.new.rand(AssessmentArea.first.id..AssessmentArea.last.id), 
-                  total_hours:Random.new.rand(1..20), 
-                  cra_hours:Random.new.rand(1..20)) 
+                  total_hours:t, 
+                  cra_hours:c ) 
 end
 100.times do |i|
+  h1=Random.new.rand(1..16)
+  h2=Random.new.rand(1..16)
+  t=[h1, h2].max
+  c=[h1, h2].min
   Service.create( activity_dt:Faker::Date.between(5.years.ago, 4.years.ago),
                   purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
                   volunteer_id:Random.new.rand(Volunteer.first.id..Volunteer.last.id),
                   organization_id:Random.new.rand(Organization.first.id..Organization.last.id), 
                   service_type_id:Random.new.rand(ServiceType.first.id..ServiceType.last.id), 
                   assessment_area_id:Random.new.rand(AssessmentArea.first.id..AssessmentArea.last.id), 
-                  total_hours:Random.new.rand(1..20), 
-                  cra_hours:Random.new.rand(1..20)) 
+                  total_hours:t, 
+                  cra_hours:c )
 end
 100.times do |i|
+  h1=Random.new.rand(1..16)
+  h2=Random.new.rand(1..16)
+  t=[h1, h2].max
+  c=[h1, h2].min
   Service.create( activity_dt:Faker::Date.between(4.years.ago, 3.years.ago),
                   purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
                   volunteer_id:Random.new.rand(Volunteer.first.id..Volunteer.last.id),
                   organization_id:Random.new.rand(Organization.first.id..Organization.last.id), 
                   service_type_id:Random.new.rand(ServiceType.first.id..ServiceType.last.id), 
                   assessment_area_id:Random.new.rand(AssessmentArea.first.id..AssessmentArea.last.id), 
-                  total_hours:Random.new.rand(1..20), 
-                  cra_hours:Random.new.rand(1..20)) 
+                  total_hours:t, 
+                  cra_hours:c ) 
 end
 100.times do |i|
+  h1=Random.new.rand(1..16)
+  h2=Random.new.rand(1..16)
+  t=[h1, h2].max
+  c=[h1, h2].min
   Service.create( activity_dt:Faker::Date.between(3.years.ago, 2.years.ago),
                   purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
                   volunteer_id:Random.new.rand(Volunteer.first.id..Volunteer.last.id),
                   organization_id:Random.new.rand(Organization.first.id..Organization.last.id), 
                   service_type_id:Random.new.rand(ServiceType.first.id..ServiceType.last.id), 
                   assessment_area_id:Random.new.rand(AssessmentArea.first.id..AssessmentArea.last.id), 
-                  total_hours:Random.new.rand(1..20), 
-                  cra_hours:Random.new.rand(1..20)) 
+                  total_hours:t, 
+                  cra_hours:c )
 end
 100.times do |i|
+  h1=Random.new.rand(1..16)
+  h2=Random.new.rand(1..16)
+  t=[h1, h2].max
+  c=[h1, h2].min
   Service.create( activity_dt:Faker::Date.between(2.years.ago, 1.years.ago),
                   purpose_code_id:Random.new.rand(PurposeCode.first.id..PurposeCode.last.id), 
                   volunteer_id:Random.new.rand(Volunteer.first.id..Volunteer.last.id),
                   organization_id:Random.new.rand(Organization.first.id..Organization.last.id), 
                   service_type_id:Random.new.rand(ServiceType.first.id..ServiceType.last.id), 
                   assessment_area_id:Random.new.rand(AssessmentArea.first.id..AssessmentArea.last.id), 
-                  total_hours:Random.new.rand(1..20), 
-                  cra_hours:Random.new.rand(1..20)) 
+                  total_hours:t, 
+                  cra_hours:c )
 end
 
 
