@@ -10,6 +10,7 @@ class CreateInvestments < ActiveRecord::Migration[5.0]
       t.string :book_value
       t.string :unfunded_committment
       t.string :percent_of_entity_funding
+      t.boolean :is_cra_qualified
 
       t.timestamps
     end

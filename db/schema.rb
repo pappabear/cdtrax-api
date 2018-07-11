@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20180628151632) do
     t.string   "book_value"
     t.string   "unfunded_committment"
     t.string   "percent_of_entity_funding"
+    t.boolean  "is_cra_qualified"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.date     "activity_dt"

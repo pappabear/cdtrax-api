@@ -600,9 +600,10 @@ puts "Creating 'investments'..."
                     investment_type_id:Random.new.rand(InvestmentType.first.id..InvestmentType.last.id), 
                     cusip_number:Faker::Business.credit_card_number, 
                     maturity_dt:Faker::Date.forward(1000), 
-                    original_amount:'50,000', 
+                    original_amount:Random.new.rand(80000..300000), 
                     book_value:'75,000', 
-                    unfunded_committment:'10,000', 
+                    unfunded_committment:'10,000',
+                    is_cra_qualified:Faker::Boolean.boolean, 
                     percent_of_entity_funding:'10') 
 end
 100.times do |i|
@@ -612,9 +613,10 @@ end
                     investment_type_id:Random.new.rand(InvestmentType.first.id..InvestmentType.last.id), 
                     cusip_number:Faker::Business.credit_card_number, 
                     maturity_dt:Faker::Date.forward(1000), 
-                    original_amount:'50,000', 
+                    original_amount:Random.new.rand(80000..300000), 
                     book_value:'75,000', 
                     unfunded_committment:'10,000', 
+                    is_cra_qualified:Faker::Boolean.boolean,
                     percent_of_entity_funding:'10') 
 end
 100.times do |i|
@@ -624,9 +626,10 @@ end
                     investment_type_id:Random.new.rand(InvestmentType.first.id..InvestmentType.last.id), 
                     cusip_number:Faker::Business.credit_card_number, 
                     maturity_dt:Faker::Date.forward(1000), 
-                    original_amount:'50,000', 
+                    original_amount:Random.new.rand(80000..300000), 
                     book_value:'75,000', 
                     unfunded_committment:'10,000', 
+                    is_cra_qualified:Faker::Boolean.boolean,
                     percent_of_entity_funding:'10') 
 end
 100.times do |i|
@@ -636,9 +639,10 @@ end
                     investment_type_id:Random.new.rand(InvestmentType.first.id..InvestmentType.last.id), 
                     cusip_number:Faker::Business.credit_card_number, 
                     maturity_dt:Faker::Date.forward(1000), 
-                    original_amount:'50,000', 
+                    original_amount:Random.new.rand(80000..300000), 
                     book_value:'75,000', 
                     unfunded_committment:'10,000', 
+                    is_cra_qualified:Faker::Boolean.boolean,
                     percent_of_entity_funding:'10') 
 end
 100.times do |i|
@@ -648,9 +652,10 @@ end
                     investment_type_id:Random.new.rand(InvestmentType.first.id..InvestmentType.last.id), 
                     cusip_number:Faker::Business.credit_card_number, 
                     maturity_dt:Faker::Date.forward(1000), 
-                    original_amount:'50,000', 
+                    original_amount:Random.new.rand(80000..300000), 
                     book_value:'75,000', 
                     unfunded_committment:'10,000', 
+                    is_cra_qualified:Faker::Boolean.boolean,
                     percent_of_entity_funding:'10') 
 end
 
