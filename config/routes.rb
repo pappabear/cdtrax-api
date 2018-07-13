@@ -21,5 +21,6 @@ Rails.application.routes.draw do
   
   get '/dashboard/service_hours_analytics', :to => 'dashboard#service_hours_analytics'
   get '/dashboard/loan_analytics', :to => 'dashboard#loan_analytics'
+  get '/dashboard/investment_analytics', :to => 'dashboard#investment_analytics'
   
 end
