@@ -67,7 +67,6 @@ class DashboardController < ApplicationController
               (
               	select extract(year from activity_dt) loan_year, count(*), sum(amount) total_amount
               	from loans
-              	where is_cra_qualified <> true
               	group by extract(year from activity_dt)
               	order by extract(year from activity_dt)
               ) as b
