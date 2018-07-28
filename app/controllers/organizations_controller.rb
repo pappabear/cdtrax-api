@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
   
     # GET /organizations
     def index
-      @organizations = Organization.all
+      @organizations = Organization.find_by_sql(get_view_sql)
       json_response(@organizations)
     end
   
@@ -16,6 +16,7 @@ class OrganizationsController < ApplicationController
   
     # GET /organizations/:id
     def show
+      @organization = Organization.find_by_sql(get_view_sql + " where id=" + params[:id] + " LIMIT 1")
       json_response(@organization)
     end
   
@@ -31,7 +32,9 @@ class OrganizationsController < ApplicationController
       head :no_content
     end
   
+  
     private
+  
   
     def organization_params
       # whitelist params
@@ -40,6 +43,11 @@ class OrganizationsController < ApplicationController
   
     def set_organization
       @organization = Organization.find(params[:id])
+    end
+
+    def get_view_sql
+      sql = "select *, concat_ws(', ', address, city, state, zip) as formatted_address from organizations"
+      return sql
     end
 
 end
