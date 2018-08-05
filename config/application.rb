@@ -34,5 +34,9 @@ module CdtraxApi
       end
     end
     
+    config.action_dispatch.default_headers = {
+        'Access-Control-Allow-Origin' => '*'
+      }
+      
   end
 end
